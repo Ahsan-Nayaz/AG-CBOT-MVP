@@ -1,0 +1,75 @@
+[project]
+# Whether to enable telemetry (default: true). No personal data is collected.
+enable_telemetry = false
+
+# List of environment variables to be provided by each user to use the app.
+user_env = []
+
+# Duration (in seconds) during which the session is saved when the connection is lost
+session_timeout = 9999999
+
+# Enable third parties caching (e.g LangChain cache)
+cache = true
+
+# Follow symlink for asset mount (see https://github.com/Chainlit/chainlit/issues/317)
+# follow_symlink = false
+
+[features]
+prompt_playground = false
+multi_modal = false
+unsafe_allow_html = false
+latex = false
+
+[features.speech_to_text]
+    enabled = true
+
+[UI]
+# Name of the app and chatbot.
+name = "Cura"
+custom_css = '/public/stylesheet.css'
+
+# Description of the app and chatbot. This is used for HTML tags.
+# description = ""
+
+# Large size content are by default collapsed for a cleaner ui
+default_collapse_content = true
+
+# The default value for the expand messages settings.
+default_expand_messages = false
+
+# Hide the chain of thought details from the user in the UI.
+hide_cot = true
+
+# Link to your github repo. This will add a github button in the UI's header.
+# github = ""
+
+# Specify a CSS file that can be used to customize the user interface.
+# The CSS file can be served from the public directory or via an external link.
+# custom_css = "/public/test.css"
+
+# If the app is served behind a reverse proxy (like cloud run) we need to know the base url for oauth
+# base_url = "https://mydomain.com"
+
+# Override default MUI light theme. (Check theme.ts)
+[UI.theme.light]
+    #background = "#FAFAFA"
+    #paper = "#FFFFFF"
+
+    [UI.theme.light.primary]
+        main = "#56004e"
+        dark = "#5c7a00"
+        light = "#73c4af"
+
+# Override default MUI dark theme. (Check theme.ts)
+[UI.theme.dark]
+    #background = "#FAFAFA"
+    #paper = "#FFFFFF"
+
+    [UI.theme.dark.primary]
+        main = "#a3c441"
+        dark = "#5c7a00"
+        light = "#f7ffde"
+
+
+[meta]
+generated_by = "1.0.0"
