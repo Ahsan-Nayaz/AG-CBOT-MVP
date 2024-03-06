@@ -66,4 +66,4 @@ jobs:
         with:
           app-name: 'cbot-dev-001'
           slot-name: 'Production'
-          publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_6C72007759C54C1FA709D392D1215254 }}
+          publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_7D2264EEB3844ADA854B6CB16C4D995E }}
