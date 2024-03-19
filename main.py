@@ -6,7 +6,7 @@ from langchain_core.prompts import ChatPromptTemplate
 from langchain.schema.runnable.config import RunnableConfig
 from langchain_core.runnables.history import RunnableWithMessageHistory
 from langchain_core.runnables import RunnableParallel
-from  utils import SYSTEM_PROMPT, END_CHAT
+from utils import SYSTEM_PROMPT, END_CHAT
 from typing import Optional, Dict
 import asyncio
 from datetime import datetime, timedelta
@@ -46,12 +46,14 @@ MESSAGE_TIMEOUT = 60
 # This is the event to notify when a new message is received
 new_message_event = asyncio.Event()
 
+
 @cl.header_auth_callback
 def header_auth_callback(headers: Dict) -> Optional[cl.User]:
-  if headers:
-    return cl.User(identifier="user", metadata={"role": "user", "provider": "header"})
-  else:
-    return None
+    if headers:
+        return cl.User(identifier="user", metadata={"role": "user", "provider": "header"})
+    else:
+        return None
+
 
 async def send_message_after_timeout():
     while True:
@@ -66,6 +68,8 @@ async def send_message_after_timeout():
         else:
             # If a new message was received, reset the event
             new_message_event.clear()
+
+
 async def send_your_message_function():
     # Your logic to send a message from your end
     rating_actions = [
@@ -95,7 +99,7 @@ async def chat_start():
             }
             | prompt
             | llm
-            # | StrOutputParser()
+        # | StrOutputParser()
     )
     runnable_initial = RunnableWithMessageHistory(
         chain_answer,
@@ -108,7 +112,6 @@ async def chat_start():
     ).assign(answer=runnable_initial)
     cl.user_session.set('runnable_history', runnable_initial)
     cl.user_session.set('runnable', runnable)
-
 
 
 @cl.step(name='Fetching relevant docs')
@@ -139,7 +142,7 @@ async def on_message(message: cl.Message):
     cl.user_session.set('transcript', transcript)
     # await asyncio.create_task(idle_check(user_id, current_message_time))
 
-    msg: cl.Message = cl.Message(content="",actions=actions)
+    msg: cl.Message = cl.Message(content="", actions=actions)
     # relevant_docs = await fetch_docs(message)
     async for chunk in runnable.astream(
             {"question": message.content},
@@ -164,7 +167,6 @@ async def on_message(message: cl.Message):
         background_task = asyncio.create_task(send_message_after_timeout())
         cl.user_session.set('background_task', background_task)
     new_message_event.set()
-
 
 
 @cl.action_callback("Transcript")
@@ -231,7 +233,6 @@ async def rating(action: cl.Action):
     )
     if feedback:
         cl.user_session.set('feedback', feedback['output'])
-
 
         # Send a thank you message and provide the option to view the transcript
         await cl.Message(

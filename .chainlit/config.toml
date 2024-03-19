@@ -12,7 +12,7 @@ session_timeout = 9999
 # Enable third parties caching (e.g LangChain cache)
 cache = false
 
-# Authorized origins
+# Authorized origins 
 allow_origins = ["*"]
 
 # Follow symlink for asset mount (see https://github.com/Chainlit/chainlit/issues/317)
